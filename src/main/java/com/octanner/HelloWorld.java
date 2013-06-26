@@ -1,6 +1,6 @@
+package com.octanner;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import org.eclipse.jetty.server.Server;
@@ -14,14 +14,9 @@ public class HelloWorld extends HttpServlet {
             throws ServletException, IOException {
 
         HelloService service = new HelloService();
-        WeatherParser parser = new WeatherParser();
-        WeatherService wService = new WeatherService();
-
-        List<WeatherDay> days = parser.getData();
-        WeatherDay day = wService.findSmallestSpread(days);
 
 
-        resp.getWriter().print("Day Number : " + day.getDayNumber() + " Max Temp: " + day.getMaxTemp() + " Min Temp: " + day.getMinTemp() + "\n");
+        resp.getWriter().print(service.getMessage() + "\n");
     }
 
     public static void main(String[] args) throws Exception{
@@ -31,6 +26,6 @@ public class HelloWorld extends HttpServlet {
         server.setHandler(context);
         context.addServlet(new ServletHolder(new HelloWorld()),"/*");
         server.start();
-        server.join();
+        server.join();   
     }
 }
